@@ -1,0 +1,38 @@
+{
+  "name": "Brainylog",
+  "description": "Base Level Extension",
+  "version": "1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "brainy_highlight.html",
+    "default_icon": "brainylogo.png"
+  },
+  "permissions": ["activeTab"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "match_about_blank": true,
+      "js": ["contentScript.js"]
+    }
+  ],
+  "commands": {
+    "copy_highlighted_text": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "MacCtrl+Shift+Y"
+      },
+      "description": "Toggle feature foo"
+    },
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+H",
+        "mac": "MacCtrl+Shift+H"
+      },
+      "description": "Opens hello.html"
+    }
+  }
+}
