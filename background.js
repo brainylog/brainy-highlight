@@ -4,7 +4,6 @@ chrome.commands.onCommand.addListener(function (command) {
     chrome.windows.getCurrent((w) => {
       chrome.tabs.query({ active: true, windowId: w.id }, (tabs) => {
         const tabId = tabs[0].id;
-        alert(tabId);
         chrome.tabs.sendMessage(tabs[0].id, { greeting: "hello" }, function (
           response
         ) {
