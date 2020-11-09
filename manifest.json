@@ -7,14 +7,14 @@
     "default_popup": "brainy_highlight.html",
     "default_icon": "brainylogo.png"
   },
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "https://5q71jg.deta.dev/"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
   },
   "content_scripts": [
     {
-      "matches": ["*://*/*"],
+      "matches": ["<all_urls>"],
       "match_about_blank": true,
       "js": ["contentScript.js"]
     }
