@@ -4,12 +4,34 @@ chrome.commands.onCommand.addListener(function (command) {
     chrome.windows.getCurrent((w) => {
       chrome.tabs.query({ active: true, windowId: w.id }, (tabs) => {
         const tabId = tabs[0].id;
-        chrome.tabs.sendMessage(tabs[0].id, { greeting: "hello" }, function (
-          response
-        ) {
-          console.log(response);
-        });
+        chrome.tabs.sendMessage(
+          tabs[0].id,
+          { action: "getSelectionAndCopy" },
+          function (response) {
+            console.log(response);
+          }
+        );
       });
     });
   }
+});
+
+chrome.contextMenus.create({
+  id: "copy",
+  title: "Add to Brainylog",
+  contexts: ["selection"],
+});
+chrome.contextMenus.onClicked.addListener((selection) => {
+  chrome.windows.getCurrent((w) => {
+    chrome.tabs.query({ active: true, windowId: w.id }, (tabs) => {
+      const tabId = tabs[0].id;
+      chrome.tabs.sendMessage(
+        tabs[0].id,
+        { action: "copyContextualSelection", payload: selection.selectionText },
+        function (response) {
+          console.log(response);
+        }
+      );
+    });
+  });
 });
